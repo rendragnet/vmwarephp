@@ -35,7 +35,7 @@ class SessionManager extends \Vmwarephp\ManagedObject {
 
 	private function saveCloneTicket($cloneTicket) {
 		if (!file_put_contents($this->getCloneTicketFile(), $cloneTicket))
-			throw new \Exception(sprintf('There was an error writing to the clone ticket path. Check the permissions of the cache directory(%s)', __DIR__ . '/../'));
+			throw new \Exception(sprintf('There was an error writing to the clone ticket path. Check the permissions of the cache directory(%s)', $this->getCloneTicketFile()));
 	}
 
 	private function readCloneTicket() {
@@ -47,7 +47,11 @@ class SessionManager extends \Vmwarephp\ManagedObject {
 
 	private function getCloneTicketFile() {
 		if (!$this->cloneTicketFile) {
-			$this->cloneTicketFile = __DIR__ . '/../.clone_ticket.cache';
+      if (ini_get('soap.wsdl_cache_dir')!='') {
+        $this->cloneTicketFile = ini_get('soap.wsdl_cache_dir').'/.clone_ticket.cache';
+      } else {
+        $this->cloneTicketFile = __DIR__ . '/../.clone_ticket.cache';
+      }
 		}
 		return $this->cloneTicketFile;
 	}
