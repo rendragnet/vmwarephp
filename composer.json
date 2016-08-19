@@ -19,7 +19,7 @@
 		"mockery/mockery":"dev-master"
 	},
         "autoload": {
-            "psr-4": { "Vmwarephp": "library/Vmwarephp" },
+            "psr-4": { "Vmwarephp/": "library/Vmwarephp" },
             "files": [ "library/Vmwarephp/TypeDefinitions.inc" ]
         }
 }
